@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { HttpService } from './http.service'; //////import service here
 import { HttpClientModule } from '@angular/common/http'; ////allows http requests
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RPGComponent } from './rpg/rpg.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RPGComponent
   ],
   imports: [
     BrowserModule,
