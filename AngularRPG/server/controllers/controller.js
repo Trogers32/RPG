@@ -1,6 +1,6 @@
 
 
-const Product = require("../models/model.js");
+const Score = require("../models/model.js");
 //////////IMPORTS//////////
 const express = require("express");
 const app = express();
@@ -11,29 +11,12 @@ app.use(express.json());
 
 module.exports = {
     index: function(req, res) {
-        Product.find()
+        Score.find()
         .then(data => res.json(data))
         .catch(err => res.json(err));
     },
-    newProduct: function(req, res) { //////add new Product
-        console.log(req.body)
-        Product.create(req.body)
-        .then(data => res.json(data))
-        .catch(err => res.json(err));
-    },
-    rid: function(req, res) { /////remove Product
-        Product.deleteOne({_id:req.params.id})
-        .then(data => res.json(data))
-        .catch(err => res.json(err));
-    },
-    upProduct: function(req, res) {
-        console.log(req.body)
-        Product.updateOne({_id:req.params.id},{$set:{title:req.body.title,price:req.body.price, imageURL:req.body.imageURL}},{runValidators:true})
-        .then(data => res.json(data))
-        .catch(err => res.json(err));
-    },
-    getProduct: function(req, res) { ///get single Product info
-        Product.find({_id:req.params.id})
+    newScore: function(req, res) { //////add new Score
+        Score.create(req.body)
         .then(data => res.json(data))
         .catch(err => res.json(err));
     },
