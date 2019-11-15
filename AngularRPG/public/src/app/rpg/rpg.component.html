@@ -1,7 +1,51 @@
-<div class="row w-100 border border-dark p-3" style="height:100vh;">
-    <div class="col h-100 w-75 d-inline-block" id="mainContent">
-        <div id="characterSelection" class="h-50 w-100 border border-dark">Character selection</div>
-        <div id="controls" class="h-50 w-100 border border-dark">Controls</div>
+<div [ngClass]="mainContainer" style="height:100vh;">
+    <div [ngClass]="mainArea" id="mainContent">
+        <div id="characterSelection" [ngClass]="charSel">
+            <div id="selectText" class="row mx-auto">
+                <h1 class="">Select a Character</h1>
+            </div>
+            <div class="row w-100">
+                <span class="col-2"></span>
+                <img (click)="selectCharacter(knight)" src="../../assets/Knight/Idle/idle.gif" alt="" class="col-3" id="Knight">
+                <img (click)="selectCharacter(mage)" src="../../assets/Mage/Idle/idle.gif" alt="" class="col-3" id="Mage">
+                <img (click)="selectCharacter(rogue)" src="../../assets/Rogue/Idle/idle.gif" alt="" class="col-3" id="Rogue">
+            </div>
+        </div>
+        <div id="controls" [ngClass]="charSel">
+            <div class="col my-auto">
+                <div class="row">
+                    <img src="../../assets/Controls/up.png" alt="" class="mx-auto">
+                </div>
+                <div class="row">
+                    <div class="mx-auto">
+                        <img src="../../assets/Controls/left.png" alt="" class="pr-4">
+                        <img src="../../assets/Controls/right.png" alt="" class="pl-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mx-auto">
+                        <img src="../../assets/Controls/down.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col my-auto">
+                <div class="row">
+                    <img src="../../assets/Controls/select.png" alt="" class="mx-auto col-4">
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col" id="sideText" class="h-100 w-25 border border-dark d-inline-block">Text output</div>
+    <div class="col-3" id="sideText" [ngClass]="sideText">
+        <h2 *ngIf="charInfo">
+            {{charInfo}}
+        </h2>
+    </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+    var knights = new Array();
+    var mages = new Array();
+    var rogues = new Array();
+    });
+</script>
