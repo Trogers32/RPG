@@ -8,12 +8,14 @@ import { HttpClientModule } from '@angular/common/http'; ////allows http request
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RPGComponent } from './rpg/rpg.component';
 import { FightComponent } from './fight/fight.component';
+import { LeaderBoardComponent } from './leader-board/leader-board.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RPGComponent,
-    FightComponent
+    FightComponent,
+    LeaderBoardComponent
   ],
   imports: [
     BrowserModule,

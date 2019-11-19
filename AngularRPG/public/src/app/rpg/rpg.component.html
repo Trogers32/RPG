@@ -6,9 +6,12 @@
             </div>
             <div class="row w-100">
                 <span class="col-2"></span>
-                <img (click)="selectCharacter(knight)" src="../../assets/Knight/Idle/idle.gif" alt="" class="col-3" id="Knight">
-                <img (click)="selectCharacter(mage)" src="../../assets/Mage/Idle/idle.gif" alt="" class="col-3" id="Mage">
-                <img (click)="selectCharacter(rogue)" src="../../assets/Rogue/Idle/idle.gif" alt="" class="col-3" id="Rogue">
+                <img *ngIf="charInfo == characters.knight" (click)="selectCharacter('knight')" src="../../assets/Knight/Idle/idle.gif" alt="" class="col-3 border border-dark" id="Knight">
+                <img *ngIf="charInfo != characters.knight" (click)="selectCharacter('knight')" src="../../assets/Knight/Idle/idle.gif" alt="" class="col-3" id="Knight">
+                <img *ngIf="charInfo == characters.mage" (click)="selectCharacter('mage')" src="../../assets/Mage/Idle/idle.gif" alt="" class="col-3 border border-dark" id="Mage">
+                <img *ngIf="charInfo != characters.mage" (click)="selectCharacter('mage')" src="../../assets/Mage/Idle/idle.gif" alt="" class="col-3" id="Mage">
+                <img *ngIf="charInfo == characters.rogue" (click)="selectCharacter('rogue')" src="../../assets/Rogue/Idle/idle.gif" alt="" class="col-3 border border-dark" id="Rogue">
+                <img *ngIf="charInfo != characters.rogue" (click)="selectCharacter('rogue')" src="../../assets/Rogue/Idle/idle.gif" alt="" class="col-3" id="Rogue">
             </div>
         </div>
         <div id="controls" [ngClass]="charSel">
@@ -18,8 +21,8 @@
                 </div>
                 <div class="row">
                     <div class="mx-auto">
-                        <img src="../../assets/Controls/left.png" alt="" class="pr-4">
-                        <img src="../../assets/Controls/right.png" alt="" class="pl-4">
+                        <img (click)="change('left')" src="../../assets/Controls/left.png" alt="" class="pr-4">
+                        <img (click)="change('right')" src="../../assets/Controls/right.png" alt="" class="pl-4">
                     </div>
                 </div>
                 <div class="row">
@@ -30,22 +33,14 @@
             </div>
             <div class="col my-auto">
                 <div class="row">
-                    <img src="../../assets/Controls/select.png" alt="" class="mx-auto col-4">
+                    <img [routerLink]="['/Start']" src="../../assets/Controls/select.png" alt="" class="mx-auto col-4">
                 </div>
             </div>
         </div>
     </div>
     <div class="col-3" id="sideText" [ngClass]="sideText">
         <h2 *ngIf="charInfo">
-            {{charInfo}}
+            {{charInfo.description}}
         </h2>
     </div>
 </div>
-
-<script>
-    $(document).ready(function(){
-    var knights = new Array();
-    var mages = new Array();
-    var rogues = new Array();
-    });
-</script>
