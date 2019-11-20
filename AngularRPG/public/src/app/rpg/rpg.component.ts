@@ -75,4 +75,16 @@ export class RPGComponent implements OnInit {
       this.charInfo = this.characters.knight;
     }
   }
+
+  choose(){
+    if(this.charInfo){
+      if(this.charInfo == this.characters.knight){
+        this.router.navigate(['Start/Knight']);
+      } else if(this.charInfo == this.characters.mage){
+        this.router.navigate(['Start/Mage']);
+      } else if(this.charInfo == this.characters.rogue){
+        this.router.navigate(['Start/Rogue']);
+      }
+    }
+  }
 }

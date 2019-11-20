@@ -1,5 +1,7 @@
 <div [ngClass]="mainContainer" style="height:100vh;">
     <div [ngClass]="mainArea" id="mainContent">
+
+        <!----------------------------------------------------CHARACTER SELECTION------------------------------------------------------>
         <div id="characterSelection" [ngClass]="charSel">
             <div id="selectText" class="row mx-auto">
                 <h1 class="">Select a Character</h1>
@@ -14,6 +16,8 @@
                 <img *ngIf="charInfo != characters.rogue" (click)="selectCharacter('rogue')" src="../../assets/Rogue/Idle/idle.gif" alt="" class="col-3" id="Rogue">
             </div>
         </div>
+
+        <!----------------------------------------------------CONTROLS------------------------------------------------------>
         <div id="controls" [ngClass]="charSel">
             <div class="col my-auto">
                 <div class="row">
@@ -33,7 +37,7 @@
             </div>
             <div class="col my-auto">
                 <div class="row">
-                    <img [routerLink]="['/Start']" src="../../assets/Controls/select.png" alt="" class="mx-auto col-4">
+                    <img (click)="choose()" src="../../assets/Controls/select.png" alt="" class="mx-auto col-4">
                 </div>
             </div>
         </div>

@@ -12,10 +12,10 @@ module.exports = function(app){
     app.post('/leaderboard', (req, res) => {
         controller.newScore(req,res);
     });
-    // app.use(function(req,res) { 
-    //     res.redirect('/'); 
-    // }); 
-    app.all("*", (req,res,next) => {
-        res.sendFile(path.resolve("./public/dist/public/index.html"))
-    });
+    app.use(function(req,res) { 
+        res.redirect('/'); 
+    }); 
+    // app.all("*", (req,res,next) => {
+    //     res.sendFile(path.resolve("./public/dist/public/index.html"))
+    // });
 }    

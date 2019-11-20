@@ -1,10 +1,82 @@
 <div [ngClass]="mainContainer" style="height:100vh;">
     <div [ngClass]="mainArea" id="mainContent">
-        <div id="characterSelection" [ngClass]="charSel">Character selection</div>
+
+        <!----------------------------------------------------FIGHT PANEL------------------------------------------------------>
+        <div id="characterSelection" [ngClass]="charSel">
+            <div class="row w-100">
+                <span class="col-2"></span>
+                <img src="../../assets/{{chosen}}/Idle/idle.gif" alt="" class="col-3">
+            </div>
+        </div>
+
+        <!----------------------------------------------------CONTROLS------------------------------------------------------>
         <div id="controls" [ngClass]="charSel">
-            <div class="col"></div>
-            <div class="col"></div>
+            <div class="col-7 pt-5">
+                <div class="h-25">
+                    <h3 *ngIf="selection !='Attack'" (click)="clickedAbility('Attack')">Attack &#187;</h3>
+                    <div *ngIf="selection =='Attack'">
+                        <h3><u>Attack &#187;</u></h3>
+                        <span (click)="secondaryChoice(choices['Attack']['main'][0])">
+                            <h5 class="pl-5" *ngIf="secondary == choices['Attack']['main'][0]"><u>{{choices['Attack']['main'][0]}}</u></h5>
+                            <h5 class="pl-5" *ngIf="secondary != choices['Attack']['main'][0]">{{choices['Attack']['main'][0]}}</h5>
+                        </span>
+                        <span (click)="secondaryChoice(choices['Attack']['main'][1])">
+                            <h5 class="pl-5" *ngIf="secondary == choices['Attack']['main'][1]"><u>{{choices['Attack']['main'][1]}}</u></h5>
+                            <h5 class="pl-5" *ngIf="secondary != choices['Attack']['main'][1]">{{choices['Attack']['main'][1]}}</h5>
+                        </span>
+                    </div>
+                </div>
+                <div class="h-25">
+                    <h3 *ngIf="selection !='Skills'" (click)="clickedAbility('Skills')">Skills&nbsp;&nbsp; &#187;</h3>
+                    <div *ngIf="selection =='Skills'">
+                        <h3><u>Skills&nbsp;&nbsp; &#187;</u></h3>
+                        <span (click)="secondaryChoice(choices['Skills']['main'][0])">
+                            <h5 class="pl-5" *ngIf="secondary == choices['Skills']['main'][0]"><u>{{choices['Skills']['main'][0]}}</u></h5>
+                            <h5 class="pl-5" *ngIf="secondary != choices['Skills']['main'][0]">{{choices['Skills']['main'][0]}}</h5>
+                        </span>
+                        <span (click)="secondaryChoice(choices['Skills']['main'][1])">
+                            <h5 class="pl-5" *ngIf="secondary == choices['Skills']['main'][1]"><u>{{choices['Skills']['main'][1]}}</u></h5>
+                            <h5 class="pl-5" *ngIf="secondary != choices['Skills']['main'][1]">{{choices['Skills']['main'][1]}}</h5>
+                        </span>
+                    </div>
+                </div>
+                <div class="h-25">
+                    <h3 *ngIf="selection !='Items'" (click)="clickedAbility('Items')">Items &nbsp;&#187;</h3>
+                    <div *ngIf="selection =='Items'">
+                        <h3><u>Items &nbsp;&#187;</u></h3>
+                        <span (click)="secondaryChoice(choices['Items']['main'][0])">
+                            <h5 class="pl-5" *ngIf="secondary == 'Health potion'"><u>{{choices['Items']['main'][0]}}</u></h5>
+                            <h5 class="pl-5" *ngIf="secondary != 'Health potion'">{{choices['Items']['main'][0]}}</h5>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col my-auto">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <img (click)="moveUp()" src="../../assets/Controls/up.png" alt="" class="mx-auto">
+                        </div>
+                        <div class="row">
+                            <div class="mx-auto">
+                                <img (click)="change('left')" src="../../assets/Controls/left.png" alt="" class="pr-4">
+                                <img (click)="change('right')" src="../../assets/Controls/right.png" alt="" class="pl-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <img (click)="moveDown()" src="../../assets/Controls/down.png" alt="" class="mx-auto">
+                        </div>
+                    </div>
+                    <div class="col w-50 text-center my-auto">
+                        <img (click)="choose()" src="../../assets/Controls/select.png" alt="" class="">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-3" id="sideText" [ngClass]="sideText">Text output</div>
+    <div class="col-3" id="sideText" [ngClass]="sideText">
+        <h2 *ngIf="charInfo">
+            {{charInfo.description}}
+        </h2>
+    </div>
 </div>
