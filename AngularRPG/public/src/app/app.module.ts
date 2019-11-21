@@ -22,7 +22,7 @@ import { LeaderBoardComponent } from './leader-board/leader-board.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

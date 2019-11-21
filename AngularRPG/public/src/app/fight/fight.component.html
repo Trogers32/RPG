@@ -5,7 +5,15 @@
         <div id="characterSelection" [ngClass]="charSel">
             <div class="row w-100">
                 <span class="col-2"></span>
-                <img src="../../assets/{{chosen}}/Idle/idle.gif" alt="" class="col-3">
+                <div class="col-3">
+                    <img [src]="imageSrc" alt="" class="h-75">
+                    <h5>Health: {{currentStats.Health}}</h5>
+                </div>
+                <span class="col-3"></span>
+                <div class="col-3">
+                    <img [src]="enemySrc" alt="" class="h-75" style="transform: scaleX(-1); padding-top: 140px;">
+                    <h5 class="text-center">Health: {{enemyStats.Health}}</h5>
+                </div>
             </div>
         </div>
 
@@ -68,15 +76,13 @@
                         </div>
                     </div>
                     <div class="col w-50 text-center my-auto">
-                        <img (click)="choose()" src="../../assets/Controls/select.png" alt="" class="">
+                        <img (click)="secondaryChoice(secondary)" src="../../assets/Controls/select.png" alt="" class="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-3" id="sideText" [ngClass]="sideText">
-        <h2 *ngIf="charInfo">
-            {{charInfo.description}}
-        </h2>
+    <div class="col-3" id="sideText" [ngClass]="sideText" style="overflow:scroll;">
+        <h5 *ngFor="let item of scrollText">{{item}}</h5>
     </div>
 </div>
