@@ -12,6 +12,7 @@ export class FightComponent implements OnInit {
     mainArea = "col-9 h-100 w-75 d-inline-block";
     mainContainer = "row w-100 border border-dark p-3";
     scrollText = [];
+    difficulty = 0;
     chosen;
     selection;
     choices;
@@ -64,23 +65,40 @@ export class FightComponent implements OnInit {
             }
         }
         this.selection = "Attack";
-        this.secondary = "Light Attack";
+        this.secondary = "";
         this.enemySrc = `../../assets/Enemies/Human/Idle/idle.gif`;
     }
 
     @HostListener('window:keyup', ['$event'])
     keyEvent(event: KeyboardEvent) {
         if (event.keyCode === this.KEY_CODE.UP) {
-            this.selection = this.choices[this.selection].top;
+            if(this.secondary != ""){
+                if(this.choices[this.selection].main[1] && this.secondary == this.choices[this.selection].main[0]){
+                    this.secondary = this.choices[this.selection].main[1];
+                } else {
+                    this.secondary = this.choices[this.selection].main[0];
+                }
+            } else {
+                this.selection = this.choices[this.selection].top;
+            }
         } else if (event.keyCode === this.KEY_CODE.DOWN) {
-            this.selection = this.choices[this.selection].bottom;
+            if(this.secondary != ""){
+                if(this.choices[this.selection].main[1] && this.secondary == this.choices[this.selection].main[0]){
+                    this.secondary = this.choices[this.selection].main[1];
+                } else {
+                    this.secondary = this.choices[this.selection].main[0];
+                }
+            } else {
+                this.selection = this.choices[this.selection].bottom;
+            }
         } else if (event.keyCode === this.KEY_CODE.LEFT_ARROW) {
             this.change("left");
         } else if (event.keyCode === this.KEY_CODE.RIGHT_ARROW) {
             this.change("right");
         }
-        // if (event.keyCode === this.KEY_CODE.ENTER) {
-        // }
+        if (event.keyCode === this.KEY_CODE.ENTER) {
+            this.secondaryChoice(this.secondary);
+        }
     }
 
     clickedAbility(selected){
@@ -88,10 +106,26 @@ export class FightComponent implements OnInit {
     }
 
     moveUp(){
-        this.selection = this.choices[this.selection].top;
+        if(this.secondary != ""){
+            if(this.choices[this.selection].main[1] && this.secondary == this.choices[this.selection].main[0]){
+                this.secondary = this.choices[this.selection].main[1];
+            } else {
+                this.secondary = this.choices[this.selection].main[0];
+            }
+        } else {
+            this.selection = this.choices[this.selection].top;
+        }
     }
     moveDown(){
-        this.selection = this.choices[this.selection].bottom;
+        if(this.secondary != ""){
+            if(this.choices[this.selection].main[1] && this.secondary == this.choices[this.selection].main[0]){
+                this.secondary = this.choices[this.selection].main[1];
+            } else {
+                this.secondary = this.choices[this.selection].main[0];
+            }
+        } else {
+            this.selection = this.choices[this.selection].bottom;
+        }
     }
 
     change(dir){
@@ -115,20 +149,36 @@ export class FightComponent implements OnInit {
                 this.imageSrc = `../../assets/${this.chosen}/Attack/attack.gif`;
                 setTimeout(() => {      ////////required to be () => for scope of 'this'
                     this.imageSrc = `../../assets/${this.chosen}/Idle/idle.gif`;
+                    this.enemyStats.Health -= damage;
+                    if(this.enemyStats.Health <= 0){
+                        this.scrollText.unshift(`You did ${damage} damage and killed the enemy!`)
+                        this.nextEnemy();
+                    } else {
+                        this.scrollText.unshift(`You made a ${this.secondary} and did ${damage} damage!`)
+                        this.enemyAttack(damage, critical);
+                    }
                 }, 1000);
             } else {
                 this.imageSrc = `../../assets/${this.chosen}/Attack_Extra/attack_strong.gif`;
                 damage += 20;
-                setTimeout(() => {      ////////required to be () => for scope of 'this'
+                setTimeout(() => {
                     this.imageSrc = `../../assets/${this.chosen}/Idle/idle.gif`;
+                    this.enemyStats.Health -= damage;
+                    if(this.enemyStats.Health <= 0){
+                        this.scrollText.unshift(`You did ${damage} damage and killed the enemy!`)
+                        this.nextEnemy();
+                    } else {
+                        this.scrollText.unshift(`You made a ${this.secondary} and did ${damage} damage!`)
+                        this.enemyAttack(damage, critical);
+                    }
                 }, 1500);
             }
-            this.enemySrc = `../../assets/Enemies/Human/Attack/attack.gif`;
-            setTimeout(() => {      ////////required to be () => for scope of 'this'
-                this.enemySrc = `../../assets/Enemies/Human/Idle/idle.gif`;
-            }, 1500);
-            this.enemyStats.Health -= damage;
-            this.scrollText.unshift(`You made a ${this.secondary} and did ${damage} damage!`)
+        }
+        this.secondary = sel;
+    }
+    enemyAttack(damage, critical){
+        this.enemySrc = `../../assets/Enemies/Human/Attack/attack.gif`;
+        setTimeout(() => {
             if(critical <= this.enemyStats.Crit){
                 damage = this.enemyStats.Attack * 2;
             } else {
@@ -136,8 +186,16 @@ export class FightComponent implements OnInit {
             }
             this.scrollText.unshift(`The enemy attacked you and did ${damage} damage!`)
             this.currentStats.Health -= damage;
-        }
-        this.secondary = sel;
+            this.enemySrc = `../../assets/Enemies/Human/Idle/idle.gif`;
+        }, 1500);
+    }
+    nextEnemy(){
+        this.enemySrc =  `../../assets/Enemies/Human/Die/die.gif`;
+        setTimeout(() => {
+            this.difficulty++;
+            this.enemyStats.Health = 100 + (20*this.difficulty);
+            this.enemySrc = `../../assets/Enemies/Human/Idle/idle.gif`;
+        }, 1100);
     }
 }
 
