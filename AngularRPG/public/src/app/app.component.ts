@@ -11,7 +11,7 @@ export class AppComponent {
     public selectedChar: Event;
 
     constructor(private _httpService: HttpService, private router:Router){
-        this.router.navigate(['Start/Rogue']);
+        // this.router.navigate(['Start/Rogue']);
     }
 
 }
